@@ -12,11 +12,12 @@ const resultGrid = document.getElementById('result-grid');
 let moviePoster = '';
 
 async function getMovies(movieTitle) {
-  const URL = `https://www.omdbapi.com/?s=${movieTitle}&page=1&apikey=${apiKey}`;
+  const URL = `https://www.omdbapi.com/?apikey=${apiKey}&s=${movieTitle}&page=1`;
   const res = await fetch(`${URL}`);
   const data = await res.json();
   console.log(data.Search);
-  if ((data.Response = 'true')) showMovies(data.Search);
+  console.log(data);
+  if (data.Response === 'True') showMovies(data.Search);
 }
 
 function searchMovies() {
@@ -29,7 +30,7 @@ function searchMovies() {
     searchList.classList.add('hide-search-list');
   }
 }
-function showMovies(movies) {
+function showMovies(movies = []) {
   searchList.innerHTML = '';
   for (let i = 0; i < movies.length; i++) {
     let movieListitem = document.createElement('div');
@@ -54,6 +55,7 @@ function showMovies(movies) {
   </div>
     `;
 
+  
     searchList.appendChild(movieListitem);
   }
 
